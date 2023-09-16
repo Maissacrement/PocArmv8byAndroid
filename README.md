@@ -4,8 +4,16 @@
 
 ## Requirement
 
-init termux: `termux-change-repo #choose github link error pkg update`
-Termux: `pkg update && pkg install python3 termux-auth openssh`
+init termux: 
+```bash
+termux-change-repo #choose github link error pkg update
+```
+
+Termux: 
+```bash
+pkg update
+pkg install python3 termux-auth openssh
+```
 
 ## Introduction
 
