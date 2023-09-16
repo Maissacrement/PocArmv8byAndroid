@@ -1,0 +1,16 @@
+---
+- hosts: android
+
+  tasks:
+
+    - name: Requirement to build the package
+      import_tasks: dependencies.yml
+
+    - name: Git download the project 
+      import_tasks: git.yml
+    
+    - name: Install Boost
+      include: libboost.yml
+
+    - name: Build the package
+      include: ci-build.yml

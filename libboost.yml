@@ -1,0 +1,37 @@
+- name: Create a directory for the Boost build
+  file:
+    path: ~/boost-build
+    state: directory
+
+- name: Download Boost source code (if not already downloaded)
+  get_url:
+    url: https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.gz
+    dest: /data/data/com.termux/files/home/boost-build/boost_1.81.0.tar.gz
+  register: boost_download
+  changed_when: boost_download.changed
+
+- name: Extract Boost source code (if not already extracted)
+  ansible.builtin.unarchive:
+    src: /data/data/com.termux/files/home/boost-build/boost_1.81.0.tar.gz
+    dest: /data/data/com.termux/files/home/boost-build
+    remote_src: yes
+  register: boost_extraction
+  changed_when: boost_extraction.changed
+
+- name: Navigate to the Boost source directory
+  shell: cd /data/data/com.termux/files/home/boost-build/boost_1_81_0
+  args:
+    chdir: /data/data/com.termux/files/home/boost-build/boost_1_81_0
+
+#- name: Configure and build Boost (if not already built)
+#  shell: |
+#    if [ ! -f ~/boost-build/boost_1_81_0/b2 ]; then
+#      ./bootstrap.sh
+#    fi
+#    if [ ! -f ~/boost-build/boost_1_81_0/stage/bin/b2 ]; then
+#      ./b2
+#    fi
+#  args:
+#    chdir: ~/boost-build/boost_1_81_0
+#  register: boost_build
+#  changed_when: boost_build.changed

@@ -1,0 +1,10 @@
+---
+all:
+  hosts:
+    android:
+      ansible_user: #as u want
+      ansible_host: #ip of ure android device
+      ansible_port: 8022 # default port
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: # Location of SSH key paired with ure Android device (See documentation Complete inventory.yml)
+... 

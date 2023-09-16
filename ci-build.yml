@@ -1,0 +1,43 @@
+- name: Record start time
+  command: "date +%s.%N"
+  register: start_time
+  changed_when: false
+
+- name: building ...
+  shell:  | 
+    cd /data/data/com.termux/files/home/devops
+    make build
+#  register: output
+#
+#- ansible.builtin.debug:
+#    var: output
+
+- name: Record end time
+  command: "date +%s.%N"
+  register: end_time
+  changed_when: false
+
+- name: Calculate execution time
+  set_fact:
+    execution_time_seconds: "{{ (end_time.stdout | float - start_time.stdout | float) }}"
+
+- ansible.builtin.debug: "msg='The binary was produced within a {{ execution_time_seconds }} second timeframe.'"
+
+- name: result
+  shell:  | 
+    ls /data/data/com.termux/files/home/devops/bin/*
+  register: output
+
+- ansible.builtin.debug: "msg='The binary was generated at this location: {{ output.stdout }}'"
+
+- name: info
+  shell: file {{ output.stdout }}
+  register: fileinfo
+
+- ansible.builtin.debug: "msg='{{ fileinfo.stdout }}'"
+
+- name: info
+  shell: ldd {{ output.stdout }}
+  register: fileinfo
+
+- ansible.builtin.debug: "msg='check if all dependencies are linked: {{ fileinfo.stdout }}'"

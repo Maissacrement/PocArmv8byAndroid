@@ -1,0 +1,24 @@
+- name: Git init connection
+  shell: |
+    eval $(ssh-agent -s)
+    ssh-add ~/.ssh/id_rsa
+    ssh -T git@gitlab.com
+  register: output
+
+- ansible.builtin.debug: "msg='{{ output.stdout }}'"
+
+- name: Check if destination directory exists
+  stat:
+    path: /data/data/com.termux/files/home/devops
+  register: destination_dir_stat
+  ignore_errors: yes  # Ignore errors if the directory doesn't exist yet
+- name: Clone Git repository (if destination directory doesn't exist)
+  shell: |
+    if [ ! -d "/data/data/com.termux/files/home/devops" ]; then
+      git clone git@gitlab.com:Maissacrement/devops.git /data/data/com.termux/files/home/devops
+    else
+      echo "Destination directory already exists. Skipping clone."
+    fi
+  args:
+    executable: /bin/bash
+  when: not destination_dir_stat.stat.exists
