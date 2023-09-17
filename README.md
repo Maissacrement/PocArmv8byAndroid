@@ -2,6 +2,10 @@
 
 [download termux](https://docs.andronix.app/termux/migrating-to-f-droid#manual-method)
 
+## Issue
+
+We encourage you to contribute by submitting issues on GitHub. Your involvement will help us progress and evolve.
+
 ## Requirement
 
 init termux: 
