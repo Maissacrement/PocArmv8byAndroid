@@ -6,7 +6,9 @@ branding:
   color: 'white'
 
 runs:
-  using: 'ubuntu-latest'
+  using: 'docker'
+  image: 'Dockerfile'
+  
 
 steps:
   - name: 'Hello World Step'
