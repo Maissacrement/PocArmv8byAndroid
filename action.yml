@@ -1,0 +1,14 @@
+name: deploy-armv8
+description: This is an action to compile for armv8 directly via your phone and tmux.
+author: DELAR Emmario
+branding:
+  icon: 'thumbs-up'
+  color: 'white'
+
+runs:
+  using: 'ubuntu-latest'
+
+steps:
+  - name: 'Hello World Step'
+    run: |
+      echo 'Hello, world!'
